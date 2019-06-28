@@ -17,7 +17,7 @@
     <button class="btn btn-default" @click="post">입 력</button>
     <button class="btn btn-default" @click="put">수 정</button>
     <button class="btn btn-default" @click="del">삭 제</button>
-    
+    <button class="btn btn-default" @click="submit">submit</button>
     
   </form>
   <Footer></Footer>
@@ -32,7 +32,9 @@ import axios from 'axios'
 export default {
    data(){
     return{
-       context : 'http://localhost:9000'
+       context : 'http://localhost:9000',
+        id : '',
+       password : ''
     }
   },
   components: {
@@ -42,9 +44,8 @@ export default {
   methods:{
       get(){
         axios.get(`${this.context}/customers/count`)
-         .then(res=>{
-           
-             alert(`SUCCESS : ${res.data}`)
+         .then(res=>{           
+             alert(`SUCCESS2 : ${res.data}`)
          })
          .catch(e=>{
              alert('ERROR')
@@ -67,7 +68,20 @@ export default {
         .then(d=>{
           alert(`DEL 연동성공: ${d.data.result}`)
         })
-      }
+      },
+       summit() {
+
+     var data = {
+       id : this.id,
+       pass : this.password
+     }
+
+     axios.post(this.localhost + 'customers/join', data).then(e => {
+       alert('SUCCESS' + e.data);
+     }).catch(e => {
+       alert('ERROR');
+     })
+   }
 
 
   }
